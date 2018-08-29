@@ -2,20 +2,30 @@ function Pizza(size, toppings) {
   this.size = size;
   this.toppings = toppings;
 };
-
-
-// var sizes = ["small, 9", "medium, 13", "large, 17"]
-// var toppings = [["olives, 1"], ["peppers, 1"], ["mushrooms, 1"], ["daiya, 1"]];
+Pizza.prototype.price = function() {
+  var sizePrice = 0;
+  var pizzaPrice = 0;
+  if (this.size === "small") {
+    sizePrice = 9;
+  } else if (this.size === "medium") {
+    sizePrice = 13;
+  } else {
+    sizePrice = 17;
+  }
+  pizzaPrice = this.toppings.length + sizePrice;
+  return pizzaPrice;
+}
 
 //front end logic
 $(document).ready(function(){
-  // console.log(sizes + toppings);
   $("form.pizza-form").submit(function(event){
     event.preventDefault();
     var size = $('input[name=opt-size]:checked').val();
-    var toppings = $('input[name=toppings]:checked').map(function(){
+    var toppings = $('input[name=toppings]:checked').map(function() {
       return this.value;
     }).get();
-    console.log(size,toppings);
+    var pizza = new Pizza(size, toppings);
+    var pizzaPrice = pizza.price();
+    alert('The cost of your pizza is ' + "$" + pizzaPrice + '.')
   })
 })
