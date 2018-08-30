@@ -1,3 +1,4 @@
+//back end logic
 function Pizza(size, toppings) {
   this.size = size;
   this.toppings = toppings;
@@ -17,7 +18,11 @@ Pizza.prototype.price = function() {
 }
 
 //front end logic
+
 $(document).ready(function(){
+  $('#name').change(function(){
+    $('#message').html('Welcome ' + $('#name').val());
+  });
   $("form.pizza-form").submit(function(event){
     event.preventDefault();
     var size = $('input[name=opt-size]:checked').val();
@@ -26,6 +31,6 @@ $(document).ready(function(){
     }).get();
     var pizza = new Pizza(size, toppings);
     var pizzaPrice = pizza.price();
-    alert('The cost of your pizza is ' + "$" + pizzaPrice + '.')
+    $("#new-order-display").text('Your ' + 'Pizza ' + 'is ' + '$' + pizzaPrice)
   })
 })
